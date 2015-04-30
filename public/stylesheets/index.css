@@ -1,0 +1,92 @@
+.ui-popup-container {
+    height: 80%;
+    width: 85%;
+    position: absolute;
+    top:10%;
+    left:7.5%;
+}
+
+.ui-popup {
+    height: 100%;
+    width: 100%;
+}
+
+#orderDialog .ui-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: calc(100% - 85px);
+}
+
+hr {
+    color: #ccc;
+    background-color: #ccc;
+    height: 1px;
+    border: 0;
+}
+
+.ilab-notice {
+    position: relative;
+    margin: 1em;
+    background: #F5F5F5;
+    padding: 1em 1em 1em 2em;
+    border-left: 4px solid #DDD;
+    border-radius: .5em;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
+}
+
+.ilab-notice:before {
+    position: absolute;
+    top: 50%;
+    margin-top: -17px;
+    left: -17px;
+    background-color: #DDD;
+    color: #FFF;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    font-family: Georgia;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.ilab-info {
+    border-color: #0074D9;
+}
+
+.ilab-info:before {
+    content: "i";
+    background-color: #0074D9;
+}
+
+.ilab-success {
+    border-color: #2ECC40;
+}
+
+.ilab-success:before {
+    content: "√";
+    background-color: #2ECC40;
+}
+
+.ilab-warning {
+    border-color: #FFDC00;
+}
+
+.ilab-warning:before {
+    content: "!";
+    background-color: #FFDC00;
+}
+
+.ilab-error {
+    border-color: #FF4136;
+}
+
+.ilab-error:before {
+    content: "❤";
+    background-color: #FF4136;
+}
+
+#order-message {
+    display: none;
+}

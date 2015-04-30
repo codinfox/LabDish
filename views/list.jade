@@ -1,0 +1,75 @@
+extends layout
+
+block link
+    link(rel="stylesheet", href="/stylesheets/list.css")
+
+block script
+    script(src="/javascripts/jquery-1.11.2.min.js")
+    script(src="/javascripts/list.js")
+
+block content
+    .datagrid
+        table(border='1')
+            thead
+                tr
+                    th 姓名
+                    th 餐点
+                    th 饮品
+                    th 订餐时间
+            tbody
+                each order, idx in orders
+                    - var className="alt"
+                    if (idx % 2 != 0)
+                        - className="alt"
+                    else
+                        - className=""
+                    tr(class="#{className}")
+                        td #{order.username}
+                        td #{order.meal.join(',')}
+                        td #{order.drink.join(',')}
+                        td #{moment(order.timestamp).format('MM/DD H:mm:ss')}
+
+    hr
+
+    .management-portal
+        form(method="post", action="/list/vendor")
+            legend 供应商信息添加修正
+            .datagrid.restaurant
+                table(border='1')
+                    thead
+                        tr
+                            th ID
+                            th 名称
+                            th 菜单
+                    tbody
+                        each r in restaurants
+                            tr
+                                td
+                                    label= r._id
+                                td
+                                    input.textbox(type="text", name="name:#{r._id}", value="#{r.name}")
+                                td
+                                    input.textbox(type="text", name="menu:#{r._id}", value="#{r.menu.join(',')}")
+            .submit-btn
+                input#add-vendor(type="button", value="增加")
+                input(type="submit", value="提交")
+
+        hr
+
+        form(method="post", action="/list/on_going_event")
+            legend 本周订餐信息
+            .on-going-event
+                fieldset
+                    label 餐点提供商ID
+                    input.textbox(type="text", name="mealVendor", value="#{event.mealVendor}")
+                    label 饮料提供商ID
+                    input.textbox(type="text", name="drinkVendor", value="#{event.drinkVendor}")
+                    label 用餐时间
+                    input.textbox(type="text", name="mealTime", value="#{moment(event.mealTime).format()}")
+                    label 点餐截止时间
+                    input.textbox(type="text", name="orderBefore", value="#{moment(event.orderBefore).format()}")
+                    label 点餐开始时间
+                    input.textbox(type="text", name="orderStart", value="#{moment(event.orderStart).format()}")
+
+            .submit-btn
+                input(type="submit", value="提交")

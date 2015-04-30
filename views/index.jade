@@ -1,0 +1,53 @@
+extends layout
+
+
+block link
+    link(rel="stylesheet", href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css")
+    link(rel="stylesheet", href="/stylesheets/index.css")
+
+block script
+    script(src="/javascripts/jquery-1.11.2.min.js")
+    script(src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js")
+    script(src="/javascripts/index.js")
+
+block content
+    div(data-role="page")
+        div(data-role="header")
+            h1 iLab@Tongji 订餐
+        .ui-content(data-role="main")
+            #order-message.ilab-notice
+            p.ilab-notice.ilab-info 欢迎使用iLab@Tongji在线订餐，如果在使用中发现任何问题，欢迎反馈给：<a href="mailto:2014iaong@tongji.edu.cn'">夏栋</a>
+            .ilab-notice.ilab-info
+                p 本周餐点提供：#{mealVendor.name}
+                p 本周饮料提供：#{drinkVendor.name}
+            .ilab-notice.ilab-error
+                p 本周组会用餐时间：#{moment(mealTime).format('H:mm ddd MM/DD')}
+                p 请在#{moment(orderBefore).format('H:mm ddd MM/DD')}之前提交订单
+            br
+            a.ui-btn.ui-corner-all.ui-shadow.ui-icon-grid.ui-btn-icon-left.ui-btn-a(href="#orderDialog", data-rel="popup", data-position-to="window", data-transition="pop").
+                开始订餐
+        data(data-role="footer")
+            h1 &copy;#{moment().format('YYYY')} iLab@Tongji
+        div(data-role="popup", id="orderDialog", data-overlay-theme="b", data-theme="a", data-dismissible="true")
+            div(data-role="header", data-theme="a")
+                h1 选择餐点
+            .ui-content(data-role="main")
+                form#order-form(data-ajax="false")
+                    div#order-dish(data-role="collapsible")
+                        h3 餐点 - #{mealVendor.name}
+                        div(data-role="fieldcontain")
+                            fieldset(data-role="controlgroup")
+                                each dish in mealVendor.menu
+                                    input.custom(id="#{dish}", type="checkbox", name="m-#{dish}")
+                                    label(for="#{dish}") #{dish}
+                    div#order-drink(data-role="collapsible")
+                        h3 饮品 - #{drinkVendor.name}
+                        div(data-role="fieldcontain")
+                            fieldset(data-role="controlgroup")
+                                each drink in drinkVendor.menu
+                                    input.custom(id="#{drink}", type="checkbox", name="d-#{drink}")
+                                    label(for="#{drink}") #{drink}
+                    div
+                        input(name="username", placeholder="订餐人姓名", type="text")
+                    div
+                        a#submit-btn.ui-btn.ui-corner-all.ui-shadow.ui-icon-check.ui-btn-icon-left.ui-btn-b 提交
